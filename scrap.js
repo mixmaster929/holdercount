@@ -41,7 +41,11 @@ app.listen(port, () => {
 async function scrapeTokenHolders(url) {
   let holdersCount = 0;
   try {
-    const { data } = await axios.get(url);
+    const { data } = await axios.get(url, {
+      headers: {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36',
+      },
+    });
     const $ = cheerio.load(data);
     const holdersElement = $(".d-flex.flex-wrap.gap-2 div").first();
 
@@ -58,4 +62,3 @@ async function scrapeTokenHolders(url) {
     return 0;
   }
 }
-// scrapeTokenHolders("https://etherscan.io/token/0xEE2a03Aa6Dacf51C18679C516ad5283d8E7C2637");
